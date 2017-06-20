@@ -1,0 +1,46 @@
+#map-canvas {
+    width: 60%;
+}
+
+.side-bar{
+	width:30%;
+	background-color: cornflowerblue;
+	padding: 10px;
+}
+
+.container{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	height: 98vh;
+}
+
+input{
+	width: 90%;
+	height: 30px;
+	border-radius: 7px;
+}
+
+.modal{
+	/*height: 40px;
+	width: 100px;*/
+	position: absolute;
+	top: 50%;
+	left: 30%;
+	right: 30%;
+	z-index: 2;
+	background-color: cornflowerblue;
+	border: solid 1px;
+}
+
+.disable{
+	display: none;
+}
+
+.modal span{
+	color: red;
+	font-size: 10px;
+	float: right;
+	cursor: pointer;
+	margin-right: 3px;
+}
