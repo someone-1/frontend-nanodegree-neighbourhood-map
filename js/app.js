@@ -3,7 +3,7 @@ function locations(name){
 	this.lon = '';
 	this.lat = '';
 };
-
+var count =0;
 //defining a class for 
 function place(){
 	//location contains the array of locations
@@ -22,17 +22,33 @@ function place(){
 		var filter = this.filter().toLowerCase();
 
 		if(!filter){
-			//console.log(this.location());
+			if(count){
+				removeMarkers([true, true, true])
+			}
+			count++;
 			return this.location();
+			// //console.log(this.location());
+			// return this.location();
 
 		} else {
-			return ko.utils.arrayFilter(self.location() , function(loc){
+			// return ko.utils.arrayFilter(self.location() , function(loc){
 				
-				return stringStartsWith(loc.name.toLowerCase() , filter);
+			// 	return stringStartsWith(loc.name.toLowerCase() , filter);
+			// })
+			var updatingLocation = []
+			//console.log(locationList);
+			var filteredArray = ko.utils.arrayFilter(this.location() , function(loc){
+				var isPresent =  stringStartsWith(loc.name.toLowerCase() , filter);
+				updatingLocation.push(isPresent);
+				return isPresent;
 			})
-		}
-
-		console.log(filter);
+			// debugger;
+			console.log('hix', updatingLocation)
+			//reloading markers in maps
+			removeMarkers(updatingLocation);
+			console.log(filteredArray,'filteredArray')
+			return filteredArray;
+		};
 	} , this);
 
 	//set initial class of the modal
@@ -66,6 +82,7 @@ function place(){
 	}
 
 	this.closeModal = function(){
+		this.location(tempArrayLocation)
 		this.className('disable modal');
 	}
 

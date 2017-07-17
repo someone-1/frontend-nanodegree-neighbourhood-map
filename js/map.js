@@ -1,5 +1,6 @@
 var map;
-var hi = 2;
+var counter, track = 0;
+var markerArrayVariying = [] ,removeMarkers , tempArrayLocation;
 function initialize() {
 	var unformattedLocation = newPlace.location();
 	var locations = [];
@@ -18,6 +19,17 @@ function initialize() {
 		disableDefaultUI: true
 	};
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	removeMarkers = function (newMarkerArray) {
+		console.log('removed')
+		var i = 0;
+		for(i=0 ; i< newMarkerArray.length ; i++){
+			if(newMarkerArray[i]){
+				markerArrayVariying[i].setMap(map);
+			} else {
+				markerArrayVariying[i].setMap(null)
+			}
+		}
+	}
 
 
 	function createMapMarker(placeData) {
@@ -33,9 +45,9 @@ function initialize() {
     		map: map,
       		position: placeData.geometry.location,
       		title: name
-
     	});
-
+		marker.id = track++
+		markerArrayVariying.push(marker);
     	// infoWindows are the little helper windows that open when you click
     	// or hover over a pin on a map. They usually contain more information
     	// about a location.
@@ -45,10 +57,20 @@ function initialize() {
 
     	// hmmmm, I wonder what this is about...
     	google.maps.event.addListener(marker, 'click', function() {
+			//newPlace.location(tempArrayLocation)
     		console.log('clicked' , marker.title , this.position.lat() , this.position.lng())
     		//newPlace.enablemodal = true;
     		//console.log('clicked' , marker.title, this.position.lng() )
-    		
+			tempArrayLocation = newPlace.location();
+			// for(i=0 ; i<markerArrayVariying.length ; i++) {
+			// 	console.log('hi')
+			// 	if(this.id == i){
+			// 		// console.log(this.title)
+					
+			// 	}
+			// }
+			newPlace.location([newPlace.location()[this.id]])
+			//newPlace.location([{name: 'hi'}])
     		newPlace.changeClass(this.position.lat() , this.position.lng());
     	});
 
